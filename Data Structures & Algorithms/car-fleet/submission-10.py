@@ -1,0 +1,15 @@
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        positions = [(x,y) for x, y in zip(position, speed)]
+        positions.sort(key=lambda x:x[0], reverse = True)
+
+        stack = []
+        #y = mx + b
+        for pos, speed in positions:
+            time = (target - pos) / speed
+            stack.append(time)
+            if len(stack) > 1 and stack[-2] >= time:
+                stack.pop()
+        
+        return len(stack)
+        

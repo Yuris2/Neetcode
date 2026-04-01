@@ -1,0 +1,34 @@
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        res = []
+        stack = []
+
+        mapping = {
+            '2': ['a','b','c'],
+            '3': ['d','e','f'],
+            '4': ['g','h','i'],
+            '5': ['j','k','l'],
+            '6': ['m','n','o'],
+            '7': ['p','q','r', 's'],
+            '8': ['t','u','v'],
+            '9': ['w','x','y', 'z'],
+        }
+
+        def back(i):
+            if i >= len(digits):
+                if len(stack) >= 1:
+                    res.append("".join(stack))
+                return
+            dig = digits[i]
+            #Going through all the chars at mapping
+            for char in mapping[dig]:
+                #Include
+                stack.append(char)
+                #Commit
+                back(i + 1)
+                #Undo
+                stack.pop()
+        
+        back(0)
+        return res
+        
